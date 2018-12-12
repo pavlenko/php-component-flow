@@ -1,0 +1,37 @@
+{
+  "config": {
+    "sort-packages": true
+  },
+  "name": "pe/component-flow",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Pavlenko Eugeniy",
+      "email": "pavlenko.obs@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~5.0",
+    "symfony/var-dumper": "^3.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "PE\\Component\\Flow\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PETest\\Component\\Flow\\": "tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  }
+}

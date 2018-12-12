@@ -1,0 +1,3 @@
+- Block can process payload (and can load data for processing?)
+- Execute applied to controllable item and advance it to next blocks
+- Add classes for each element type
