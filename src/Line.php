@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow;
 
-class Line
+class Line implements LineInterface
 {
     /**
      * @var string
@@ -28,7 +28,7 @@ class Line
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getName(): string
     {
@@ -36,7 +36,7 @@ class Line
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getFrom(): string
     {
@@ -44,18 +44,16 @@ class Line
     }
 
     /**
-     * @param string $from
-     *
-     * @return Line
+     * @inheritDoc
      */
-    public function setFrom(string $from): Line
+    public function setFrom(string $from): LineInterface
     {
         $this->from = $from;
         return $this;
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getTo(): string
     {
@@ -63,11 +61,9 @@ class Line
     }
 
     /**
-     * @param string $to
-     *
-     * @return Line
+     * @inheritDoc
      */
-    public function setTo(string $to): Line
+    public function setTo(string $to): LineInterface
     {
         $this->to = $to;
         return $this;

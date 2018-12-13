@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow;
 
-class Flow
+class Flow implements FlowInterface
 {
     /**
      * @var string
@@ -38,7 +38,7 @@ class Flow
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getName(): string
     {
@@ -46,11 +46,9 @@ class Flow
     }
 
     /**
-     * @param Node $node
-     *
-     * @return Flow
+     * @inheritDoc
      */
-    public function addNode(Node $node): Flow
+    public function addNode(Node $node): FlowInterface
     {
         foreach ($this->nodes as $item) {
             if ($item->getName() == $node->getName()) {
@@ -63,11 +61,9 @@ class Flow
     }
 
     /**
-     * @param Line $line
-     *
-     * @return Flow
+     * @inheritDoc
      */
-    public function addLine(Line $line): Flow
+    public function addLine(Line $line): FlowInterface
     {
         foreach ($this->lines as $item) {
             if ($item->getFrom() == $line->getFrom() && $item->getTo() == $line->getTo()) {

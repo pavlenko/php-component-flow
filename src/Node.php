@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow;
 
-class Node
+class Node implements NodeInterface
 {
     /**
      * @var string
@@ -18,7 +18,7 @@ class Node
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getName(): string
     {

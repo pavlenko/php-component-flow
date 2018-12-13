@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow;
 
-class Builder
+class Builder implements BuilderInterface
 {
     /**
      * @var Node[]
@@ -15,32 +15,26 @@ class Builder
     private $lines = [];
 
     /**
-     * @param string $name
-     *
-     * @return Node
+     * @inheritDoc
      */
-    public function createNode(string $name): Node
+    public function createNode(string $name): NodeInterface
     {
         return ($this->nodes[] = new Node($name));
     }
 
     /**
-     * @param string $name
-     *
-     * @return Line
+     * @inheritDoc
      */
-    public function createLine(string $name): Line
+    public function createLine(string $name): LineInterface
     {
         return ($this->lines[] = new Line($name));
     }
 
     /**
-     * @param string $name
-     *
-     * @return Flow
+     * @inheritDoc
      */
-    public function createFlow(string $name): Flow
+    public function createFlow(string $name): FlowInterface
     {
-        return new Flow($name);
+        return new Flow($name, $this->nodes, $this->lines);
     }
 }

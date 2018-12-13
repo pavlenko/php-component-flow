@@ -5,29 +5,21 @@ namespace PE\Component\Flow;
 interface FlowInterface
 {
     /**
-     * @return BlockInterface[]
+     * @return string
      */
-    public function getBlocks(): array;
+    public function getName(): string;
 
     /**
-     * @param string $id
-     *
-     * @return BlockInterface|null
-     */
-    public function getBlock(string $id): ?BlockInterface;
-
-    /**
-     * @param string         $id
-     * @param BlockInterface $block
+     * @param Node $node
      *
      * @return FlowInterface
      */
-    public function addBlock(string $id, BlockInterface $block): FlowInterface;
+    public function addNode(Node $node): FlowInterface;
 
     /**
-     * @param string $id
+     * @param Line $line
      *
      * @return FlowInterface
      */
-    public function removeBlock(string $id): FlowInterface;
+    public function addLine(Line $line): FlowInterface;
 }
