@@ -40,3 +40,12 @@ $flow->addLine((new Line('online'))->setFrom('Create Recipients')->setTo('Send C
 $flow->addLine((new Line('open'))->setFrom('Send Campaign 1.1')->setTo('Send Campaign 2.1'));
 $flow->addLine((new Line('click'))->setFrom('Send Campaign 1.1')->setTo('Send Campaign 2.2'));
 $flow->addLine((new Line('open'))->setFrom('Send Campaign 2.1')->setTo('Send Campaign 3.1'));
+
+foreach ($flow->getNodes() as $node) {
+    $nodes = $flow->getNodesBefore($node);
+
+    foreach ($nodes as $item) {
+        $target = $item->getTarget();
+        $node->process($target);//TODO <-- where to get processing target
+    }
+}

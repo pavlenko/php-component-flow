@@ -48,7 +48,7 @@ class Flow implements FlowInterface
     /**
      * @inheritDoc
      */
-    public function addNode(Node $node): FlowInterface
+    public function addNode(NodeInterface $node): FlowInterface
     {
         foreach ($this->nodes as $item) {
             if ($item->getName() == $node->getName()) {
@@ -63,7 +63,7 @@ class Flow implements FlowInterface
     /**
      * @inheritDoc
      */
-    public function addLine(Line $line): FlowInterface
+    public function addLine(LineInterface $line): FlowInterface
     {
         foreach ($this->lines as $item) {
             if ($item->getFrom() == $line->getFrom() && $item->getTo() == $line->getTo()) {

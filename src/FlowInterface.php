@@ -10,16 +10,21 @@ interface FlowInterface
     public function getName(): string;
 
     /**
-     * @param Node $node
-     *
-     * @return FlowInterface
+     * @return NodeInterface[]
      */
-    public function addNode(Node $node): FlowInterface;
+    public function getNodes(): array;
 
     /**
-     * @param Line $line
+     * @param NodeInterface $node
      *
      * @return FlowInterface
      */
-    public function addLine(Line $line): FlowInterface;
+    public function addNode(NodeInterface $node): FlowInterface;
+
+    /**
+     * @param LineInterface $line
+     *
+     * @return FlowInterface
+     */
+    public function addLine(LineInterface $line): FlowInterface;
 }
