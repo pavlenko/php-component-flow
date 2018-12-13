@@ -30,9 +30,4 @@ interface FlowInterface
      * @return FlowInterface
      */
     public function removeBlock(string $id): FlowInterface;
-
-    /**
-     * @return void
-     */
-    public function execute(): void;
 }
