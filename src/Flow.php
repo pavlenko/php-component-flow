@@ -4,6 +4,82 @@ namespace PE\Component\Flow;
 
 class Flow
 {
-    public function addTransition(Transition $transition)
-    {}
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var Node[]
+     */
+    private $nodes = [];
+
+    /**
+     * @var Line[]
+     */
+    private $lines = [];
+
+    /**
+     * @param string $name
+     * @param Node[] $nodes
+     * @param Line[] $lines
+     */
+    public function __construct(string $name, array $nodes = [], array $lines = [])
+    {
+        $this->name = $name;
+
+        foreach ($nodes as $node) {
+            $this->addNode($node);
+        }
+
+        foreach ($lines as $line) {
+            $this->addLine($line);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param Node $node
+     *
+     * @return Flow
+     */
+    public function addNode(Node $node): Flow
+    {
+        foreach ($this->nodes as $item) {
+            if ($item->getName() == $node->getName()) {
+                throw new \LogicException(sprintf('Node with name "%s" already exists', $node->getName()));
+            }
+        }
+
+        $this->nodes[] = $node;
+        return $this;
+    }
+
+    /**
+     * @param Line $line
+     *
+     * @return Flow
+     */
+    public function addLine(Line $line): Flow
+    {
+        foreach ($this->lines as $item) {
+            if ($item->getFrom() == $line->getFrom() && $item->getTo() == $line->getTo()) {
+                throw new \LogicException(sprintf(
+                    'Line between nodes "%s" and "%s" already exists',
+                    $line->getFrom(),
+                    $line->getName()
+                ));
+            }
+        }
+
+        $this->lines[] = $line;
+        return $this;
+    }
 }
