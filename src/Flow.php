@@ -136,21 +136,14 @@ class Flow implements FlowInterface
     /**
      * @inheritDoc
      */
-    public function execute(string $state, SubjectsCollection $subjects = null): void
+    public function process(SubjectsCollection $subjects = null): void
     {
-        if (array_key_exists($state, $this->nodes)) {
-            $current = $this->nodes[$state];
-            $targets = $this->getTargetsOf($current);
-
-            if (!$subjects && $current instanceof SubjectsProviderInterface) {
-                $subjects = $current->getSubjects();
+        foreach ($this->nodes as $node) {
+            if (!$subjects && $node instanceof SubjectsProviderInterface) {
+                $subjects = $node->getSubjects();
             }
 
-            if ($subjects) {
-                foreach ($targets as $target) {
-                    $target->process($subjects);
-                }
-            }
+            $node->process($subjects);
         }
     }
 }

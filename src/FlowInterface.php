@@ -34,8 +34,7 @@ interface FlowInterface
     public function addLine(LineInterface $line): FlowInterface;
 
     /**
-     * @param string                  $state
      * @param SubjectsCollection|null $subjects
      */
-    public function execute(string $state, SubjectsCollection $subjects = null): void;
+    public function process(SubjectsCollection $subjects = null): void;
 }

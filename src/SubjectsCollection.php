@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow;
 
-final class SubjectsCollection implements \Iterator
+class SubjectsCollection implements \Iterator
 {
     /**
      * @var int
@@ -72,5 +72,15 @@ final class SubjectsCollection implements \Iterator
     public function rewind()
     {
         $this->pointer = 0;
+    }
+
+    /**
+     * @param string $state
+     */
+    public function setState(string $state)
+    {
+        foreach ($this->values as $value) {
+            $value->setState($state);
+        }
     }
 }
