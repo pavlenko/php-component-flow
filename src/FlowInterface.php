@@ -22,6 +22,11 @@ interface FlowInterface
     public function addNode(NodeInterface $node): FlowInterface;
 
     /**
+     * @return LineInterface[]
+     */
+    public function getLines(): array;
+
+    /**
      * @param LineInterface $line
      *
      * @return FlowInterface

@@ -12,19 +12,23 @@ class Line implements LineInterface
     /**
      * @var string
      */
-    private $from;
+    private $source;
 
     /**
      * @var string
      */
-    private $to;
+    private $target;
 
     /**
      * @param string $name
+     * @param string $source
+     * @param string $target
      */
-    public function __construct(string $name)
+    public function __construct(string $name, string $source, string $target)
     {
-        $this->name = $name;
+        $this->name   = $name;
+        $this->source = $source;
+        $this->target = $target;
     }
 
     /**
@@ -40,16 +44,7 @@ class Line implements LineInterface
      */
     public function getSource(): string
     {
-        return $this->from;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setSource(string $from): LineInterface
-    {
-        $this->from = $from;
-        return $this;
+        return $this->source;
     }
 
     /**
@@ -57,15 +52,6 @@ class Line implements LineInterface
      */
     public function getTarget(): string
     {
-        return $this->to;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setTarget(string $to): LineInterface
-    {
-        $this->to = $to;
-        return $this;
+        return $this->target;
     }
 }
