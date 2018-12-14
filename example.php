@@ -22,7 +22,7 @@ $builder = new Builder();
 
 $builder->createNode('START');
 $builder->createNode('FINISH');
-$builder->createLine('LINE')->setFrom('START')->setTo('FINISH');
+$builder->createLine('LINE')->setSource('START')->setTarget('FINISH');
 
 $flow1 = $builder->createFlow('FLOW');
 
@@ -36,10 +36,10 @@ $flow->addNode(new Node('Send Campaign 2.2'));
 $flow->addNode(new Node('Send Campaign 3.1'));
 $flow->addNode(new Node('Stop'));
 
-$flow->addLine((new Line('online'))->setFrom('Create Recipients')->setTo('Send Campaign 1.1'));
-$flow->addLine((new Line('open'))->setFrom('Send Campaign 1.1')->setTo('Send Campaign 2.1'));
-$flow->addLine((new Line('click'))->setFrom('Send Campaign 1.1')->setTo('Send Campaign 2.2'));
-$flow->addLine((new Line('open'))->setFrom('Send Campaign 2.1')->setTo('Send Campaign 3.1'));
+$flow->addLine((new Line('online'))->setSource('Create Recipients')->setTarget('Send Campaign 1.1'));
+$flow->addLine((new Line('open'))->setSource('Send Campaign 1.1')->setTarget('Send Campaign 2.1'));
+$flow->addLine((new Line('click'))->setSource('Send Campaign 1.1')->setTarget('Send Campaign 2.2'));
+$flow->addLine((new Line('open'))->setSource('Send Campaign 2.1')->setTarget('Send Campaign 3.1'));
 
 foreach ($flow->getNodes() as $node) {
     $nodes = $flow->getNodesBefore($node);

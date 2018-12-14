@@ -12,24 +12,24 @@ interface LineInterface
     /**
      * @return string
      */
-    public function getFrom(): string;
+    public function getSource(): string;
 
     /**
      * @param string $from
      *
      * @return LineInterface
      */
-    public function setFrom(string $from): LineInterface;
+    public function setSource(string $from): LineInterface;
 
     /**
      * @return string
      */
-    public function getTo(): string;
+    public function getTarget(): string;
 
     /**
      * @param string $to
      *
      * @return LineInterface
      */
-    public function setTo(string $to): LineInterface;
+    public function setTarget(string $to): LineInterface;
 }

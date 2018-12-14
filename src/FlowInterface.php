@@ -27,4 +27,9 @@ interface FlowInterface
      * @return FlowInterface
      */
     public function addLine(LineInterface $line): FlowInterface;
+
+    /**
+     * @param SubjectInterface $subject
+     */
+    public function process(SubjectInterface $subject): void;
 }

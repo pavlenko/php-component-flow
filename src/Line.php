@@ -38,7 +38,7 @@ class Line implements LineInterface
     /**
      * @inheritDoc
      */
-    public function getFrom(): string
+    public function getSource(): string
     {
         return $this->from;
     }
@@ -46,7 +46,7 @@ class Line implements LineInterface
     /**
      * @inheritDoc
      */
-    public function setFrom(string $from): LineInterface
+    public function setSource(string $from): LineInterface
     {
         $this->from = $from;
         return $this;
@@ -55,7 +55,7 @@ class Line implements LineInterface
     /**
      * @inheritDoc
      */
-    public function getTo(): string
+    public function getTarget(): string
     {
         return $this->to;
     }
@@ -63,7 +63,7 @@ class Line implements LineInterface
     /**
      * @inheritDoc
      */
-    public function setTo(string $to): LineInterface
+    public function setTarget(string $to): LineInterface
     {
         $this->to = $to;
         return $this;

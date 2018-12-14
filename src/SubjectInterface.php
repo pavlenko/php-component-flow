@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow;
 
-interface TargetInterface
+interface SubjectInterface
 {
     /**
      * @return string

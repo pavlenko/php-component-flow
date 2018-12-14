@@ -48,10 +48,18 @@ class Flow implements FlowInterface
     /**
      * @inheritDoc
      */
+    public function getNodes(): array
+    {
+        return $this->nodes;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function addNode(NodeInterface $node): FlowInterface
     {
         foreach ($this->nodes as $item) {
-            if ($item->getName() == $node->getName()) {
+            if ($item->getName() === $node->getName()) {
                 throw new \LogicException(sprintf('Node with name "%s" already exists', $node->getName()));
             }
         }
@@ -65,11 +73,19 @@ class Flow implements FlowInterface
      */
     public function addLine(LineInterface $line): FlowInterface
     {
+        if (!array_key_exists($line->getSource(), $this->nodes)) {
+            throw new \LogicException(sprintf('Source node with name "%s" not exists', $line->getSource()));
+        }
+
+        if (!array_key_exists($line->getTarget(), $this->nodes)) {
+            throw new \LogicException(sprintf('Target node with name "%s" not exists', $line->getTarget()));
+        }
+
         foreach ($this->lines as $item) {
-            if ($item->getFrom() == $line->getFrom() && $item->getTo() == $line->getTo()) {
+            if ($item->getSource() === $line->getSource() && $item->getTarget() === $line->getTarget()) {
                 throw new \LogicException(sprintf(
                     'Line between nodes "%s" and "%s" already exists',
-                    $line->getFrom(),
+                    $line->getSource(),
                     $line->getName()
                 ));
             }
@@ -77,5 +93,15 @@ class Flow implements FlowInterface
 
         $this->lines[] = $line;
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function process(SubjectInterface $subject): void
+    {
+        // TODO: Implement process() method.
+        //TODO resolve processing node by subject state
+        //TODO process subject via node targets
     }
 }
