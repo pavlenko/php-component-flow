@@ -136,10 +136,20 @@ class Flow implements FlowInterface
     /**
      * @inheritDoc
      */
-    public function process(SubjectInterface $subject): void
+    public function process(SubjectInterface $subject): bool
     {
-        // TODO: Implement process() method.
-        //TODO resolve processing node by subject state
-        //TODO process subject via node targets
+        if (array_key_exists($subject->getState(), $this->nodes)) {
+            $current = $this->nodes[$subject->getState()];
+            $targets = $this->getTargetsOf($current);
+
+            foreach ($targets as $target) {
+                if ($target->process($subject)) {
+                    $subject->setState($target->getName());
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

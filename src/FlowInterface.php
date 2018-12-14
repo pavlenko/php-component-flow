@@ -35,6 +35,8 @@ interface FlowInterface
 
     /**
      * @param SubjectInterface $subject
+     *
+     * @return bool Returns true if success, false otherwise
      */
-    public function process(SubjectInterface $subject): void;
+    public function process(SubjectInterface $subject): bool;
 }

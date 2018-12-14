@@ -10,11 +10,18 @@ class Node implements NodeInterface
     private $name;
 
     /**
-     * @param string $name
+     * @var callable|null
      */
-    public function __construct(string $name)
+    private $callable;
+
+    /**
+     * @param string        $name
+     * @param callable|null $callable
+     */
+    public function __construct(string $name, callable $callable = null)
     {
-        $this->name = $name;
+        $this->name     = $name;
+        $this->callable = $callable;
     }
 
     /**
@@ -23,5 +30,17 @@ class Node implements NodeInterface
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function process(SubjectInterface $subject): bool
+    {
+        if ($this->callable) {
+            return (bool) call_user_func($this->callable, $subject);
+        }
+
+        return true;
     }
 }
