@@ -10,7 +10,7 @@ interface NodeInterface
     public function getName(): string;
 
     /**
-     * @param SubjectsCollection|null $subjects
+     * @param SubjectCollection|null $subjects
      */
-    public function process(SubjectsCollection $subjects = null): void;
+    public function process(SubjectCollection $subjects = null): void;
 }

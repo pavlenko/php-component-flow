@@ -5,11 +5,6 @@ namespace PE\Component\Flow;
 class Flow implements FlowInterface
 {
     /**
-     * @var string
-     */
-    private $name;
-
-    /**
      * @var NodeInterface[]
      */
     private $nodes = [];
@@ -20,14 +15,11 @@ class Flow implements FlowInterface
     private $lines = [];
 
     /**
-     * @param string          $name
      * @param NodeInterface[] $nodes
      * @param LineInterface[] $lines
      */
-    public function __construct(string $name, array $nodes = [], array $lines = [])
+    public function __construct(array $nodes = [], array $lines = [])
     {
-        $this->name = $name;
-
         foreach ($nodes as $node) {
             $this->addNode($node);
         }
@@ -35,14 +27,6 @@ class Flow implements FlowInterface
         foreach ($lines as $line) {
             $this->addLine($line);
         }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     /**
@@ -136,10 +120,10 @@ class Flow implements FlowInterface
     /**
      * @inheritDoc
      */
-    public function process(SubjectsCollection $subjects = null): void
+    public function process(SubjectCollection $subjects = null): void
     {
         foreach ($this->nodes as $node) {
-            if (!$subjects && $node instanceof SubjectsProviderInterface) {
+            if (!$subjects && $node instanceof SubjectProviderInterface) {
                 $subjects = $node->getSubjects();
             }
 

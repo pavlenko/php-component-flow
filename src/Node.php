@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow;
 
-class Node implements NodeInterface
+class Node implements NodeInterface, SubjectProviderInterface
 {
     /**
      * @var string
@@ -12,16 +12,23 @@ class Node implements NodeInterface
     /**
      * @var callable|null
      */
-    private $callable;
+    private $process;
+
+    /**
+     * @var callable|null
+     */
+    private $getSubjects;
 
     /**
      * @param string        $name
-     * @param callable|null $callable
+     * @param callable|null $process
+     * @param callable|null $getSubjects
      */
-    public function __construct(string $name, callable $callable = null)
+    public function __construct(string $name, callable $process = null, callable $getSubjects = null)
     {
-        $this->name     = $name;
-        $this->callable = $callable;
+        $this->name        = $name;
+        $this->process     = $process;
+        $this->getSubjects = $getSubjects;
     }
 
     /**
@@ -35,14 +42,24 @@ class Node implements NodeInterface
     /**
      * @inheritDoc
      */
-    public function process(SubjectsCollection $subjects = null): void
+    public function getSubjects(): SubjectCollection
     {
-        if ($this->callable) {
-            call_user_func($this->callable, $subjects);
-        } else {
-            foreach ($subjects as $subject) {
-                $subject->setState($this->name);
-            }
+        $subjects = null;
+
+        if ($this->getSubjects) {
+            $subjects = call_user_func($this->getSubjects) ?: null;
+        }
+
+        return $subjects;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function process(SubjectCollection $subjects = null): void
+    {
+        if ($this->process) {
+            call_user_func($this->process, $this, $subjects);
         }
     }
 }

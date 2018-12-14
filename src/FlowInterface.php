@@ -5,11 +5,6 @@ namespace PE\Component\Flow;
 interface FlowInterface
 {
     /**
-     * @return string
-     */
-    public function getName(): string;
-
-    /**
      * @return NodeInterface[]
      */
     public function getNodes();
@@ -34,7 +29,7 @@ interface FlowInterface
     public function addLine(LineInterface $line): FlowInterface;
 
     /**
-     * @param SubjectsCollection|null $subjects
+     * @param SubjectCollection|null $subjects
      */
-    public function process(SubjectsCollection $subjects = null): void;
+    public function process(SubjectCollection $subjects = null): void;
 }

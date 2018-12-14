@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow;
 
-class SubjectsCollection implements \Iterator
+class SubjectCollection implements \Iterator
 {
     /**
      * @var int
