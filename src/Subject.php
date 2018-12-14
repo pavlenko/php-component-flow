@@ -4,12 +4,15 @@ namespace PE\Component\Flow;
 
 class Subject implements SubjectInterface
 {
+    /**
+     * @var string
+     */
     private $state;
 
     /**
      * @param string $state
      */
-    public function __construct(string $state)
+    public function __construct(string $state = null)
     {
         $this->state = $state;
     }

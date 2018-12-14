@@ -10,9 +10,7 @@ interface NodeInterface
     public function getName(): string;
 
     /**
-     * @param SubjectInterface $subject
-     *
-     * @return bool Returns true if success, false otherwise
+     * @param SubjectsCollection $subjects
      */
-    public function process(SubjectInterface $subject): bool;
+    public function process(SubjectsCollection $subjects): void;
 }

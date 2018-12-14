@@ -10,19 +10,19 @@ class Flow implements FlowInterface
     private $name;
 
     /**
-     * @var Node[]
+     * @var NodeInterface[]
      */
     private $nodes = [];
 
     /**
-     * @var Line[]
+     * @var LineInterface[]
      */
     private $lines = [];
 
     /**
-     * @param string $name
-     * @param Node[] $nodes
-     * @param Line[] $lines
+     * @param string          $name
+     * @param NodeInterface[] $nodes
+     * @param LineInterface[] $lines
      */
     public function __construct(string $name, array $nodes = [], array $lines = [])
     {
@@ -48,7 +48,7 @@ class Flow implements FlowInterface
     /**
      * @inheritDoc
      */
-    public function getNodes(): array
+    public function getNodes()
     {
         return $this->nodes;
     }
@@ -69,7 +69,7 @@ class Flow implements FlowInterface
     /**
      * @inheritDoc
      */
-    public function getLines(): array
+    public function getLines()
     {
         return $this->lines;
     }
@@ -136,20 +136,21 @@ class Flow implements FlowInterface
     /**
      * @inheritDoc
      */
-    public function process(SubjectInterface $subject): bool
+    public function execute(string $state, SubjectsCollection $subjects = null): void
     {
-        if (array_key_exists($subject->getState(), $this->nodes)) {
-            $current = $this->nodes[$subject->getState()];
+        if (array_key_exists($state, $this->nodes)) {
+            $current = $this->nodes[$state];
             $targets = $this->getTargetsOf($current);
 
-            foreach ($targets as $target) {
-                if ($target->process($subject)) {
-                    $subject->setState($target->getName());
-                    return true;
+            if (!$subjects && $current instanceof SubjectsProviderInterface) {
+                $subjects = $current->getSubjects();
+            }
+
+            if ($subjects) {
+                foreach ($targets as $target) {
+                    $target->process($subjects);
                 }
             }
         }
-
-        return false;
     }
 }

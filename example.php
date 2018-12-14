@@ -22,8 +22,14 @@ $flow->addLine(new Line('Send Campaign 1.1', 'Send Campaign 2.1'));
 $flow->addLine(new Line('Send Campaign 1.1', 'Send Campaign 2.2'));
 $flow->addLine(new Line('Send Campaign 2.1', 'Send Campaign 3.1'));
 
-$subject = new Subject('Create Recipients');
+$subject = new Subject();
 
-$flow->process($subject);
+// Execute flow with external subjects provider
+$flow->execute('Create Recipients', new SubjectsCollection([$subject]));
 
 dump($subject);
+
+// Execute each node with self subjects provider
+foreach ($flow->getNodes() as $node) {
+    $flow->execute($node->getName());
+}

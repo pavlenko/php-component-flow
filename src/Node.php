@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow;
 
-class Node implements NodeInterface
+final class Node implements NodeInterface
 {
     /**
      * @var string
@@ -35,12 +35,14 @@ class Node implements NodeInterface
     /**
      * @inheritDoc
      */
-    public function process(SubjectInterface $subject): bool
+    public function process(SubjectsCollection $subjects): void
     {
         if ($this->callable) {
-            return (bool) call_user_func($this->callable, $subject);
+            call_user_func($this->callable, $subjects);
         }
 
-        return true;
+        foreach ($subjects as $subject) {
+            $subject->setState($this->name);
+        }
     }
 }

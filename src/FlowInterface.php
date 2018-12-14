@@ -12,7 +12,7 @@ interface FlowInterface
     /**
      * @return NodeInterface[]
      */
-    public function getNodes(): array;
+    public function getNodes();
 
     /**
      * @param NodeInterface $node
@@ -24,7 +24,7 @@ interface FlowInterface
     /**
      * @return LineInterface[]
      */
-    public function getLines(): array;
+    public function getLines();
 
     /**
      * @param LineInterface $line
@@ -34,9 +34,8 @@ interface FlowInterface
     public function addLine(LineInterface $line): FlowInterface;
 
     /**
-     * @param SubjectInterface $subject
-     *
-     * @return bool Returns true if success, false otherwise
+     * @param string                  $state
+     * @param SubjectsCollection|null $subjects
      */
-    public function process(SubjectInterface $subject): bool;
+    public function execute(string $state, SubjectsCollection $subjects = null): void;
 }
