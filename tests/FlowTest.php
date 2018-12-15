@@ -82,7 +82,7 @@ class FlowTest extends TestCase
     {
         $process = function (NodeInterface $node, SubjectCollection $subjects = null) {
             if ($subjects) {
-                $subjects->setState($node->getName());
+                $subjects->setState($node->getID());
             }
         };
 
@@ -99,7 +99,7 @@ class FlowTest extends TestCase
 
         $process = function (NodeInterface $node, SubjectCollection $subjects = null) {
             if ($subjects) {
-                $subjects->setState($node->getName());
+                $subjects->setState($node->getID());
             }
         };
 

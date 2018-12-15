@@ -7,10 +7,10 @@ interface LineInterface
     /**
      * @return string
      */
-    public function getSource(): string;
+    public function getSourceID(): string;
 
     /**
      * @return string
      */
-    public function getTarget(): string;
+    public function getTargetID(): string;
 }

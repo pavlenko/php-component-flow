@@ -2,64 +2,74 @@
 
 namespace PE\Component\Flow;
 
-class Node implements NodeInterface, SubjectProviderInterface
+class Node implements NodeInterface
 {
     /**
      * @var string
      */
-    private $name;
+    private $id;
+
+    /**
+     * @var string|null
+     */
+    private $label;
 
     /**
      * @var callable|null
      */
-    private $process;
-
-    /**
-     * @var callable|null
-     */
-    private $getSubjects;
+    private $callable;
 
     /**
      * @param string        $name
-     * @param callable|null $process
-     * @param callable|null $getSubjects
+     * @param string|null   $label
+     * @param callable|null $callable
      */
-    public function __construct(string $name, callable $process = null, callable $getSubjects = null)
+    public function __construct(string $name, string $label = null, callable $callable = null)
     {
-        $this->name        = $name;
-        $this->process     = $process;
-        $this->getSubjects = $getSubjects;
+        $this->id       = $name;
+        $this->label    = $label;
+        $this->callable = $callable;
     }
 
     /**
      * @inheritDoc
      */
-    public function getName(): string
+    public function getID(): string
     {
-        return $this->name;
+        return $this->id;
     }
 
     /**
      * @inheritDoc
      */
-    public function getSubjects(): SubjectCollection
+    public function getLabel(): ?string
     {
-        $subjects = null;
-
-        if ($this->getSubjects) {
-            $subjects = call_user_func($this->getSubjects) ?: null;
-        }
-
-        return $subjects;
+        return $this->label;
     }
 
     /**
      * @inheritDoc
      */
-    public function process(SubjectCollection $subjects = null): void
+    public function getAllowedSourcesCount(): int
     {
-        if ($this->process) {
-            call_user_func($this->process, $this, $subjects);
+        return PHP_INT_MAX;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAllowedTargetsCount(): int
+    {
+        return PHP_INT_MAX;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function process(SubjectCollection $collection, array &$options = []): void
+    {
+        if ($this->callable) {
+            call_user_func($this->callable, $this, $collection, $options);
         }
     }
 }

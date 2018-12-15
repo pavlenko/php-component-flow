@@ -27,7 +27,7 @@ class Line implements LineInterface
     /**
      * @inheritDoc
      */
-    public function getSource(): string
+    public function getSourceID(): string
     {
         return $this->source;
     }
@@ -35,7 +35,7 @@ class Line implements LineInterface
     /**
      * @inheritDoc
      */
-    public function getTarget(): string
+    public function getTargetID(): string
     {
         return $this->target;
     }

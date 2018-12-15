@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow;
 
-class Flow implements FlowInterface
+final class Flow
 {
     /**
      * @var NodeInterface[]
@@ -30,19 +30,35 @@ class Flow implements FlowInterface
     }
 
     /**
-     * @inheritDoc
+     * @return NodeInterface[]
      */
-    public function getNodes()
+    public function getNodes(): array
     {
         return $this->nodes;
     }
 
     /**
-     * @inheritDoc
+     * @param string $id
+     *
+     * @return NodeInterface
      */
-    public function addNode(NodeInterface $node): FlowInterface
+    public function getNode(string $id): NodeInterface
     {
-        if (array_key_exists($key = $node->getName(), $this->nodes)) {
+        if (!array_key_exists($id, $this->nodes)) {
+            throw new \InvalidArgumentException(sprintf('Node with id "%s" not found', $id));
+        }
+
+        return $this->nodes[$id];
+    }
+
+    /**
+     * @param NodeInterface $node
+     *
+     * @return Flow
+     */
+    public function addNode(NodeInterface $node): Flow
+    {
+        if (array_key_exists($key = $node->getID(), $this->nodes)) {
             throw new \LogicException(sprintf('Node with name "%s" already exists', $key));
         }
 
@@ -51,23 +67,25 @@ class Flow implements FlowInterface
     }
 
     /**
-     * @inheritDoc
+     * @return LineInterface[]
      */
-    public function getLines()
+    public function getLines(): array
     {
         return $this->lines;
     }
 
     /**
-     * @inheritDoc
+     * @param LineInterface $line
+     *
+     * @return Flow
      */
-    public function addLine(LineInterface $line): FlowInterface
+    public function addLine(LineInterface $line): Flow
     {
-        if (!array_key_exists($source = $line->getSource(), $this->nodes)) {
+        if (!array_key_exists($source = $line->getSourceID(), $this->nodes)) {
             throw new \LogicException(sprintf('Source node with name "%s" not exists', $source));
         }
 
-        if (!array_key_exists($target = $line->getTarget(), $this->nodes)) {
+        if (!array_key_exists($target = $line->getTargetID(), $this->nodes)) {
             throw new \LogicException(sprintf('Target node with name "%s" not exists', $target));
         }
 
@@ -76,6 +94,8 @@ class Flow implements FlowInterface
         if (array_key_exists($key, $this->lines)) {
             throw new \LogicException(sprintf('Line between nodes "%s" --> "%s" already exists', $source, $target));
         }
+
+        //TODO validate count of sources and targets
 
         $this->lines[$key] = $line;
         return $this;
@@ -91,8 +111,8 @@ class Flow implements FlowInterface
         $result = [];
 
         foreach ($this->lines as $line) {
-            if ($line->getTarget() === $node->getName()) {
-                $result[] = $this->nodes[$line->getSource()];
+            if ($line->getTargetID() === $node->getID()) {
+                $result[] = $this->nodes[$line->getSourceID()];
             }
         }
 
@@ -109,25 +129,11 @@ class Flow implements FlowInterface
         $result = [];
 
         foreach ($this->lines as $line) {
-            if ($line->getSource() === $node->getName()) {
-                $result[] = $this->nodes[$line->getTarget()];
+            if ($line->getSourceID() === $node->getID()) {
+                $result[] = $this->nodes[$line->getTargetID()];
             }
         }
 
         return $result;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function process(SubjectCollection $subjects = null): void
-    {
-        foreach ($this->nodes as $node) {
-            if (!$subjects && $node instanceof SubjectProviderInterface) {
-                $subjects = $node->getSubjects();
-            }
-
-            $node->process($subjects);
-        }
     }
 }

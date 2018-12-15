@@ -9,7 +9,7 @@ class CreateRecipients extends Node implements SubjectProviderInterface
     /**
      * @inheritDoc
      */
-    public function getSubjects(): SubjectCollection
+    public function getSubjectCollection(): SubjectCollection
     {
         return new SubjectCollection([new Subject('Recipient1')]);
     }
@@ -17,10 +17,10 @@ class CreateRecipients extends Node implements SubjectProviderInterface
     /**
      * @inheritDoc
      */
-    public function process(SubjectCollection $subjects = null): void
+    public function process(SubjectCollection $collection = null): void
     {
-        if ($subjects) {
-            $subjects->setState($this->getName());
+        if ($collection) {
+            $collection->setState($this->getID());
         }
     }
 }
