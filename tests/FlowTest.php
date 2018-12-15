@@ -5,9 +5,7 @@ namespace PETest\Component\Flow;
 use PE\Component\Flow\Flow;
 use PE\Component\Flow\Line;
 use PE\Component\Flow\Node;
-use PE\Component\Flow\NodeInterface;
-use PE\Component\Flow\Subject;
-use PE\Component\Flow\SubjectCollection;
+use PETest\Component\Flow\Fixtures\ConfigurableNode;
 use PHPUnit\Framework\TestCase;
 
 class FlowTest extends TestCase
@@ -50,14 +48,50 @@ class FlowTest extends TestCase
         $flow->addLine(new Line('A', 'B'));
     }
 
-    public function testGetNodes()
+    public function testAddLineThrowExceptionIfNoAllowedSources(): void
+    {
+        $this->expectException(\LogicException::class);
+
+        $flow = new Flow();
+        $flow->addNode(new Node('A'));
+        $flow->addNode(new ConfigurableNode('B', 0, PHP_INT_MAX));
+        $flow->addLine(new Line('A', 'B'));
+    }
+
+    public function testAddLineThrowExceptionIfNoAllowedTargets(): void
+    {
+        $this->expectException(\LogicException::class);
+
+        $flow = new Flow();
+        $flow->addNode(new ConfigurableNode('A', PHP_INT_MAX, 0));
+        $flow->addNode(new Node('B'));
+        $flow->addLine(new Line('A', 'B'));
+    }
+
+    public function testGetNodes(): void
     {
         $flow = new Flow([$a = new Node('A'), $b = new Node('B')]);
 
         static::assertSame(['A' => $a, 'B' => $b], $flow->getNodes());
     }
 
-    public function testGetLines()
+    public function testGetNodeThrowExceptionIfNotExistsNode(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $flow = new Flow([new Node('A')]);
+        $flow->getNode('B');
+    }
+
+    public function testGetNode(): void
+    {
+        $flow = new Flow([$a = new Node('A', 'AAA')]);
+
+        static::assertSame($a, $flow->getNode('A'));
+        static::assertSame('AAA', $flow->getNode('A')->getLabel());
+    }
+
+    public function testGetLines(): void
     {
         $flow = new Flow([new Node('A'), new Node('B')], [$ab = new Line('A', 'B'), $ba = new Line('B', 'A')]);
 
@@ -76,41 +110,5 @@ class FlowTest extends TestCase
         $flow = new Flow([$a = new Node('A'), $b = new Node('B')], [new Line('A', 'B')]);
 
         static::assertSame([$b], $flow->getTargetsOf($a));
-    }
-
-    public function testProcessWithExternalCollection(): void
-    {
-        $process = function (NodeInterface $node, SubjectCollection $subjects = null) {
-            if ($subjects) {
-                $subjects->setState($node->getID());
-            }
-        };
-
-        $flow = new Flow([new Node('A', $process), new Node('B', $process)], [new Line('A', 'B')]);
-
-        $flow->process(new SubjectCollection([$subject = new Subject('A')]));
-
-        static::assertSame('B', $subject->getState());
-    }
-
-    public function testProcessWithInternalCollection(): void
-    {
-        $subject = new Subject('A');
-
-        $process = function (NodeInterface $node, SubjectCollection $subjects = null) {
-            if ($subjects) {
-                $subjects->setState($node->getID());
-            }
-        };
-
-        $getSubjectCollection = function () use ($subject) {
-            return new SubjectCollection([$subject]);
-        };
-
-        $flow = new Flow([new Node('A', $process, $getSubjectCollection), new Node('B', $process)], [new Line('A', 'B')]);
-
-        $flow->process();
-
-        static::assertSame('B', $subject->getState());
     }
 }

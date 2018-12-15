@@ -15,6 +15,16 @@ final class Flow
     private $lines = [];
 
     /**
+     * @var int[]
+     */
+    private $sources = [];
+
+    /**
+     * @var int[]
+     */
+    private $targets = [];
+
+    /**
      * @param NodeInterface[] $nodes
      * @param LineInterface[] $lines
      */
@@ -95,7 +105,16 @@ final class Flow
             throw new \LogicException(sprintf('Line between nodes "%s" --> "%s" already exists', $source, $target));
         }
 
-        //TODO validate count of sources and targets
+        if ($this->nodes[$source]->getAllowedTargetsCount() <= ($this->targets[$line->getTargetID()] ?? 0)) {
+            throw new \LogicException(sprintf('Source node "%s" allowed targets count reached', $source));
+        }
+
+        if ($this->nodes[$target]->getAllowedSourcesCount() <= ($this->sources[$line->getTargetID()] ?? 0)) {
+            throw new \LogicException(sprintf('Target node "%s" allowed sources count reached', $source));
+        }
+
+        $this->sources[$line->getSourceID()] = ($this->sources[$line->getSourceID()] ?? 0) + 1;
+        $this->targets[$line->getTargetID()] = ($this->targets[$line->getTargetID()] ?? 0) + 1;
 
         $this->lines[$key] = $line;
         return $this;
