@@ -15,6 +15,11 @@ final class Flow
     private $lines = [];
 
     /**
+     * @var string|null
+     */
+    private $label;
+
+    /**
      * @var int[]
      */
     private $sources = [];
@@ -28,7 +33,7 @@ final class Flow
      * @param NodeInterface[] $nodes
      * @param LineInterface[] $lines
      */
-    public function __construct(array $nodes = [], array $lines = [])
+    public function __construct(array $nodes = [], array $lines = [], string $label = null)
     {
         foreach ($nodes as $node) {
             $this->addNode($node);
@@ -37,6 +42,8 @@ final class Flow
         foreach ($lines as $line) {
             $this->addLine($line);
         }
+
+        $this->label = $label;
     }
 
     /**
@@ -118,6 +125,14 @@ final class Flow
 
         $this->lines[$key] = $line;
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLabel(): ?string
+    {
+        return $this->label;
     }
 
     /**

@@ -15,13 +15,20 @@ class Line implements LineInterface
     private $target;
 
     /**
-     * @param string $source
-     * @param string $target
+     * @var string|null
      */
-    public function __construct(string $source, string $target)
+    private $label;
+
+    /**
+     * @param string      $source
+     * @param string      $target
+     * @param string|null $label
+     */
+    public function __construct(string $source, string $target, string $label = null)
     {
         $this->source = $source;
         $this->target = $target;
+        $this->label  = $label;
     }
 
     /**
@@ -38,5 +45,13 @@ class Line implements LineInterface
     public function getTargetID(): string
     {
         return $this->target;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getLabel(): ?string
+    {
+        return $this->label;
     }
 }

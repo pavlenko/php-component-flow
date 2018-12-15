@@ -13,4 +13,9 @@ interface LineInterface
      * @return string
      */
     public function getTargetID(): string;
+
+    /**
+     * @return string|null
+     */
+    public function getLabel(): ?string;
 }
