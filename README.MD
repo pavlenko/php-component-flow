@@ -89,6 +89,3 @@ $executor->executeFlow($flow);
 // Or you can execute single node, for step by step control
 $executor->executeNode($node);
 ```
-
-# TODO
-- Check chunked processing possible
