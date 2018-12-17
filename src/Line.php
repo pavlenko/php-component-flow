@@ -4,6 +4,8 @@ namespace PE\Component\Flow;
 
 class Line implements LineInterface
 {
+    use Label;
+
     /**
      * @var string
      */
@@ -15,26 +17,19 @@ class Line implements LineInterface
     private $target;
 
     /**
-     * @var string|null
-     */
-    private $label;
-
-    /**
      * @param string      $source
      * @param string      $target
-     * @param string|null $label
      */
-    public function __construct(\string $source, \string $target, \string $label = null)
+    public function __construct(string $source, string $target)
     {
         $this->source = $source;
         $this->target = $target;
-        $this->label  = $label;
     }
 
     /**
      * @inheritDoc
      */
-    public function getSourceID(): \string
+    public function getSourceID(): string
     {
         return $this->source;
     }
@@ -42,16 +37,8 @@ class Line implements LineInterface
     /**
      * @inheritDoc
      */
-    public function getTargetID(): \string
+    public function getTargetID(): string
     {
         return $this->target;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getLabel(): ?\string
-    {
-        return $this->label;
     }
 }

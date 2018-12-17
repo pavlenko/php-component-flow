@@ -7,10 +7,10 @@ interface SubjectInterface
     /**
      * @return string
      */
-    public function getState(): \string;
+    public function getState(): string;
 
     /**
      * @param string $state
      */
-    public function setState(\string $state);
+    public function setState(string $state);
 }

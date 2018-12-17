@@ -25,7 +25,7 @@ class ExecutorTest extends TestCase
             $executed = true;
         };
 
-        $node = new Node('A', null, $callable);
+        $node = new Node('A', $callable);
 
         $executor = new Executor($provider);
         $executor->executeNode($node);
@@ -52,7 +52,7 @@ class ExecutorTest extends TestCase
             $executed2 = true;
         };
 
-        $flow = new Flow([new Node('A', null, $callable1), new SubjectProviderNode('B', $callable2)]);
+        $flow = new Flow([new Node('A', $callable1), new SubjectProviderNode('B', $callable2)]);
 
         $executor = new Executor($provider);
         $executor->executeFlow($flow);

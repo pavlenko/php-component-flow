@@ -88,4 +88,9 @@ $executor->executeFlow($flow);
 
 // Or you can execute single node, for step by step control
 $executor->executeNode($node);
+
+//TODO maybe useful below
+$executor = new Executor($flow, $provider);
+$executor->execute($options);
+$executor->execute($options, 'NODE1');
 ```

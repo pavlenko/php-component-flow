@@ -4,15 +4,12 @@ namespace PE\Component\Flow;
 
 class Node implements NodeInterface
 {
+    use Label;
+
     /**
      * @var string
      */
     private $id;
-
-    /**
-     * @var string|null
-     */
-    private $label;
 
     /**
      * @var callable|null
@@ -21,20 +18,18 @@ class Node implements NodeInterface
 
     /**
      * @param string        $name
-     * @param string|null   $label
      * @param callable|null $callable
      */
-    public function __construct(\string $name, \string $label = null, callable $callable = null)
+    public function __construct(string $name, callable $callable = null)
     {
         $this->id       = $name;
-        $this->label    = $label;
         $this->callable = $callable;
     }
 
     /**
      * @inheritDoc
      */
-    public function getID(): \string
+    public function getID(): string
     {
         return $this->id;
     }
@@ -42,15 +37,7 @@ class Node implements NodeInterface
     /**
      * @inheritDoc
      */
-    public function getLabel(): ?\string
-    {
-        return $this->label;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getAllowedSourcesCount(): \int
+    public function getAllowedSourcesCount(): int
     {
         return PHP_INT_MAX;
     }
@@ -58,7 +45,7 @@ class Node implements NodeInterface
     /**
      * @inheritDoc
      */
-    public function getAllowedTargetsCount(): \int
+    public function getAllowedTargetsCount(): int
     {
         return PHP_INT_MAX;
     }

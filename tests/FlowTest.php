@@ -85,7 +85,7 @@ class FlowTest extends TestCase
 
     public function testGetNode(): void
     {
-        $flow = new Flow([$a = new Node('A', 'AAA')]);
+        $flow = new Flow([$a = new Node('A')]);
 
         static::assertSame($a, $flow->getNode('A'));
     }
@@ -95,19 +95,6 @@ class FlowTest extends TestCase
         $flow = new Flow([new Node('A'), new Node('B')], [$ab = new Line('A', 'B'), $ba = new Line('B', 'A')]);
 
         static::assertSame(['A-->B' => $ab, 'B-->A' => $ba], $flow->getLines());
-    }
-
-    public function testGetLabels(): void
-    {
-        $flow = new Flow(
-            [$node = new Node('A', 'NODE'), new Node('B')],
-            [$line = new Line('A', 'B', 'LINE')],
-            'FLOW'
-        );
-
-        static::assertSame('FLOW', $flow->getLabel());
-        static::assertSame('NODE', $node->getLabel());
-        static::assertSame('LINE', $line->getLabel());
     }
 
     public function testGetSourcesOf(): void

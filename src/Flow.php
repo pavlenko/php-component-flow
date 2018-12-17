@@ -4,6 +4,8 @@ namespace PE\Component\Flow;
 
 final class Flow
 {
+    use Label;
+
     /**
      * @var NodeInterface[]
      */
@@ -13,11 +15,6 @@ final class Flow
      * @var LineInterface[]
      */
     private $lines = [];
-
-    /**
-     * @var string|null
-     */
-    private $label;
 
     /**
      * @var int[]
@@ -32,9 +29,8 @@ final class Flow
     /**
      * @param NodeInterface[] $nodes
      * @param LineInterface[] $lines
-     * @param string          $label
      */
-    public function __construct(array $nodes = [], array $lines = [], \string $label = null)
+    public function __construct(array $nodes = [], array $lines = [])
     {
         foreach ($nodes as $node) {
             $this->addNode($node);
@@ -43,8 +39,6 @@ final class Flow
         foreach ($lines as $line) {
             $this->addLine($line);
         }
-
-        $this->label = $label;
     }
 
     /**
@@ -60,7 +54,7 @@ final class Flow
      *
      * @return NodeInterface
      */
-    public function getNode(\string $id): NodeInterface
+    public function getNode(string $id): NodeInterface
     {
         if (!array_key_exists($id, $this->nodes)) {
             throw new \InvalidArgumentException(sprintf('Node with id "%s" not found', $id));
@@ -126,14 +120,6 @@ final class Flow
 
         $this->lines[$key] = $line;
         return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getLabel(): ?\string
-    {
-        return $this->label;
     }
 
     /**
