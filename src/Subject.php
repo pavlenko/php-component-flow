@@ -12,7 +12,7 @@ class Subject implements SubjectInterface
     /**
      * @param string $state
      */
-    public function __construct(string $state = null)
+    public function __construct(\string $state = null)
     {
         $this->state = $state;
     }
@@ -20,7 +20,7 @@ class Subject implements SubjectInterface
     /**
      * @inheritDoc
      */
-    public function getState(): string
+    public function getState(): \string
     {
         return $this->state;
     }
@@ -28,7 +28,7 @@ class Subject implements SubjectInterface
     /**
      * @inheritDoc
      */
-    public function setState(string $state)
+    public function setState(\string $state): void
     {
         $this->state = $state;
     }

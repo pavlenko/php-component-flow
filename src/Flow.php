@@ -32,8 +32,9 @@ final class Flow
     /**
      * @param NodeInterface[] $nodes
      * @param LineInterface[] $lines
+     * @param string          $label
      */
-    public function __construct(array $nodes = [], array $lines = [], string $label = null)
+    public function __construct(array $nodes = [], array $lines = [], \string $label = null)
     {
         foreach ($nodes as $node) {
             $this->addNode($node);
@@ -59,7 +60,7 @@ final class Flow
      *
      * @return NodeInterface
      */
-    public function getNode(string $id): NodeInterface
+    public function getNode(\string $id): NodeInterface
     {
         if (!array_key_exists($id, $this->nodes)) {
             throw new \InvalidArgumentException(sprintf('Node with id "%s" not found', $id));
@@ -130,7 +131,7 @@ final class Flow
     /**
      * @return string|null
      */
-    public function getLabel(): ?string
+    public function getLabel(): ?\string
     {
         return $this->label;
     }

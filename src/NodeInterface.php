@@ -9,28 +9,28 @@ interface NodeInterface
      *
      * @return string
      */
-    public function getID(): string;
+    public function getID(): \string;
 
     /**
      * Get node display label
      *
      * @return string|null
      */
-    public function getLabel(): ?string;
+    public function getLabel(): ?\string;
 
     /**
      * Get node max sources count, must be greater or equal 0
      *
      * @return int
      */
-    public function getAllowedSourcesCount(): int;
+    public function getAllowedSourcesCount(): \int;
 
     /**
      * Get node max targets count, must be greater or equal 0
      *
      * @return int
      */
-    public function getAllowedTargetsCount(): int;
+    public function getAllowedTargetsCount(): \int;
 
     /**
      * Apply node logic to subjects collection

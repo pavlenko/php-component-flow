@@ -9,5 +9,5 @@ interface SubjectProviderInterface
      *
      * @return SubjectCollection
      */
-    public function getSubjectCollection(string $id): SubjectCollection;
+    public function getSubjectCollection(\string $id): SubjectCollection;
 }

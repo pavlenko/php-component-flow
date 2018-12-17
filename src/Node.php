@@ -24,7 +24,7 @@ class Node implements NodeInterface
      * @param string|null   $label
      * @param callable|null $callable
      */
-    public function __construct(string $name, string $label = null, callable $callable = null)
+    public function __construct(\string $name, \string $label = null, callable $callable = null)
     {
         $this->id       = $name;
         $this->label    = $label;
@@ -34,7 +34,7 @@ class Node implements NodeInterface
     /**
      * @inheritDoc
      */
-    public function getID(): string
+    public function getID(): \string
     {
         return $this->id;
     }
@@ -42,7 +42,7 @@ class Node implements NodeInterface
     /**
      * @inheritDoc
      */
-    public function getLabel(): ?string
+    public function getLabel(): ?\string
     {
         return $this->label;
     }
@@ -50,7 +50,7 @@ class Node implements NodeInterface
     /**
      * @inheritDoc
      */
-    public function getAllowedSourcesCount(): int
+    public function getAllowedSourcesCount(): \int
     {
         return PHP_INT_MAX;
     }
@@ -58,7 +58,7 @@ class Node implements NodeInterface
     /**
      * @inheritDoc
      */
-    public function getAllowedTargetsCount(): int
+    public function getAllowedTargetsCount(): \int
     {
         return PHP_INT_MAX;
     }

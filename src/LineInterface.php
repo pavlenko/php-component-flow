@@ -7,15 +7,15 @@ interface LineInterface
     /**
      * @return string
      */
-    public function getSourceID(): string;
+    public function getSourceID(): \string;
 
     /**
      * @return string
      */
-    public function getTargetID(): string;
+    public function getTargetID(): \string;
 
     /**
      * @return string|null
      */
-    public function getLabel(): ?string;
+    public function getLabel(): ?\string;
 }

@@ -24,7 +24,7 @@ class Line implements LineInterface
      * @param string      $target
      * @param string|null $label
      */
-    public function __construct(string $source, string $target, string $label = null)
+    public function __construct(\string $source, \string $target, \string $label = null)
     {
         $this->source = $source;
         $this->target = $target;
@@ -34,7 +34,7 @@ class Line implements LineInterface
     /**
      * @inheritDoc
      */
-    public function getSourceID(): string
+    public function getSourceID(): \string
     {
         return $this->source;
     }
@@ -42,7 +42,7 @@ class Line implements LineInterface
     /**
      * @inheritDoc
      */
-    public function getTargetID(): string
+    public function getTargetID(): \string
     {
         return $this->target;
     }
@@ -50,7 +50,7 @@ class Line implements LineInterface
     /**
      * @inheritDoc
      */
-    public function getLabel(): ?string
+    public function getLabel(): ?\string
     {
         return $this->label;
     }
