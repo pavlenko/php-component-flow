@@ -12,13 +12,6 @@ interface NodeInterface
     public function getID(): string;
 
     /**
-     * Get node display label
-     *
-     * @return string|null
-     */
-    public function getLabel(): ?string;
-
-    /**
      * Get node max sources count, must be greater or equal 0
      *
      * @return int
@@ -33,10 +26,17 @@ interface NodeInterface
     public function getAllowedTargetsCount(): int;
 
     /**
+     * @param array $options
+     *
+     * @return array
+     */
+    public function results(array &$options = []): array;
+
+    /**
      * Apply node logic to subjects collection
      *
-     * @param SubjectCollection $collection Subjects collection
-     * @param array             $options    Custom node options, passed by reference to allow persist changed
+     * @param array $subjects Subjects collection
+     * @param array $options  Custom node options, passed by reference to allow persist changed
      */
-    public function process(SubjectCollection $collection, array &$options = []): void;
+    public function process(array $subjects, array &$options = []): void;
 }

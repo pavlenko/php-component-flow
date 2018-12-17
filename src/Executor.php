@@ -5,39 +5,37 @@ namespace PE\Component\Flow;
 final class Executor
 {
     /**
-     * @var SubjectProviderInterface
+     * @var Flow
      */
-    private $provider;
+    private $flow;
 
     /**
-     * @param SubjectProviderInterface $provider
+     * @param Flow $flow
      */
-    public function __construct(SubjectProviderInterface $provider)
+    public function __construct(Flow $flow)
     {
-        $this->provider = $provider;
+        $this->flow = $flow;
     }
 
     /**
-     * @param Flow  $flow
-     * @param array $options
+     * @param array       $options
+     * @param string|null $nodeID
      */
-    public function executeFlow(Flow $flow, array &$options = []): void
+    public function execute(array &$options = [], string $nodeID = null)
     {
-        foreach ($flow->getNodes() as $node) {
-            $this->executeNode($node, $options);
+        foreach ($this->flow->getNodes() as $node) {
+            if (null === $nodeID || $node->getID() == $nodeID) {
+                $sources = $this->flow->getSourcesOf($node);
+                $results = [];
+
+                foreach ($sources as $source) {
+                    foreach ($source->results($options) as $result) {
+                        $results[] = $result;
+                    }
+                }
+
+                $node->process($results, $options);
+            }
         }
-    }
-
-    /**
-     * @param NodeInterface $node
-     * @param array         $options
-     */
-    public function executeNode(NodeInterface $node, array &$options = []): void
-    {
-        $collection = $node instanceof SubjectProviderInterface
-            ? $node->getSubjectCollection($node->getID())
-            : $this->provider->getSubjectCollection($node->getID());
-
-        $node->process($collection, $options);
     }
 }

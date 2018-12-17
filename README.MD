@@ -34,13 +34,13 @@ $flow->addLine(new Line('B', 'C'));
 // Then you can convert flow to some view
 return [
     'label' => $flow->getLabel(),
-    'nodes' => array_map(function (NodeInterface $node) {
+    'nodes' => array_map(function (Node $node) {
         return [
             'id'    => $node->getID(),
             'label' => $node->getLabel()
         ];
     }, $flow->getNodes()),
-    'lines' => array_map(function (LineInterface $line) {
+    'lines' => array_map(function (Line $line) {
         return [
             'sourceID' => $line->getSourceID(),
             'targetID' => $line->getTargetID(),
@@ -56,24 +56,10 @@ Define flow for execution
 <?php
 namespace PE\Component\Flow;
 
-// Minimal requirements for execute is implement SubjectProviderInterface
-// You can implement interface in custom node class for self providing 
-class SubjectProvider implements SubjectProviderInterface
-{
-    /**
-     * @inheritDoc
-     */
-    public function getSubjectCollection(string $id): SubjectCollection
-    {
-        return new SubjectCollection([new Subject('STATE1')]);
-    }    
-}
-
-// And create node processor via extend Node::process() method
+// Create node processor via extend Node::process() method
 // Or pass callable to Node
-$process = function (NodeInterface $node, SubjectCollection $collection) {
+$process = function (array $subjects, array &$options = [], NodeInterface $node) {
     //TODO Do some stuff here...
-    $collection->setState('STATE2');
 };
 
 // Then you can create flow
@@ -83,14 +69,9 @@ $flow = new Flow(
 );
 
 // For execute flow you need to create executor
-$executor = new Executor(new SubjectProvider());
-$executor->executeFlow($flow);
+$executor = new Executor($flow);
+$executor->execute($options);
 
 // Or you can execute single node, for step by step control
-$executor->executeNode($node);
-
-//TODO maybe useful below
-$executor = new Executor($flow, $provider);
-$executor->execute($options);
 $executor->execute($options, 'NODE1');
 ```

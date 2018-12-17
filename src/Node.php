@@ -14,16 +14,28 @@ class Node implements NodeInterface
     /**
      * @var callable|null
      */
+    private $processCB;
+
+    /**
+     * @var callable|null
+     */
+    private $resultsCB;
+
+    /**
+     * @var callable|null
+     */
     private $callable;
 
     /**
      * @param string        $name
-     * @param callable|null $callable
+     * @param callable|null $processCB
+     * @param callable|null $resultsCB
      */
-    public function __construct(string $name, callable $callable = null)
+    public function __construct(string $name, callable $processCB = null, callable $resultsCB = null)
     {
-        $this->id       = $name;
-        $this->callable = $callable;
+        $this->id        = $name;
+        $this->processCB = $processCB;
+        $this->resultsCB = $resultsCB;
     }
 
     /**
@@ -53,10 +65,24 @@ class Node implements NodeInterface
     /**
      * @inheritDoc
      */
-    public function process(SubjectCollection $collection, array &$options = []): void
+    public function results(array &$options = []): array
     {
-        if ($this->callable) {
-            call_user_func($this->callable, $this, $collection, $options);
+        $results = [];
+
+        if ($this->resultsCB) {
+            $results = call_user_func($this->resultsCB, $options, $this);
+        }
+
+        return is_array($results) ? $results : [];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function process(array $subjects, array &$options = []): void
+    {
+        if ($this->processCB) {
+            call_user_func($this->processCB, $subjects, $options, $this);
         }
     }
 }
