@@ -4,7 +4,7 @@ namespace PE\Component\Flow;
 
 class Node implements NodeInterface
 {
-    use Label;
+    use LabelledTrait;
 
     /**
      * @var string
@@ -14,28 +14,16 @@ class Node implements NodeInterface
     /**
      * @var callable|null
      */
-    private $processCB;
+    private $process;
 
     /**
-     * @var callable|null
+     * @param string   $id
+     * @param callable $process
      */
-    private $resultsCB;
-
-    /**
-     * @var callable|null
-     */
-    private $callable;
-
-    /**
-     * @param string        $name
-     * @param callable|null $processCB
-     * @param callable|null $resultsCB
-     */
-    public function __construct(string $name, callable $processCB = null, callable $resultsCB = null)
+    public function __construct(string $id, callable $process)
     {
-        $this->id        = $name;
-        $this->processCB = $processCB;
-        $this->resultsCB = $resultsCB;
+        $this->id      = $id;
+        $this->process = $process;
     }
 
     /**
@@ -65,24 +53,14 @@ class Node implements NodeInterface
     /**
      * @inheritDoc
      */
-    public function results(array &$options = []): array
+    public function process(Dataset $dataset): Dataset
     {
-        $results = [];
+        $result = call_user_func($this->process, $dataset);
 
-        if ($this->resultsCB) {
-            $results = call_user_func($this->resultsCB, $options, $this);
+        if (!($result instanceof Dataset)) {
+            throw new \LogicException('Result of callable must be instance of ' . Dataset::class);
         }
 
-        return is_array($results) ? $results : [];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function process(array $subjects, array &$options = []): void
-    {
-        if ($this->processCB) {
-            call_user_func($this->processCB, $subjects, $options, $this);
-        }
+        return $result;
     }
 }

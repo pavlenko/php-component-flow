@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow;
 
-trait Label
+trait LabelledTrait
 {
     /**
      * @var string|null
@@ -19,9 +19,12 @@ trait Label
 
     /**
      * @param string $label
+     *
+     * @return static
      */
-    public function setLabel(string $label): void
+    public function setLabel(string $label)
     {
         $this->label = $label;
+        return $this;
     }
 }

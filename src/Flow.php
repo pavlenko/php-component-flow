@@ -4,7 +4,7 @@ namespace PE\Component\Flow;
 
 final class Flow
 {
-    use Label;
+    use LabelledTrait;
 
     /**
      * @var NodeInterface[]
@@ -127,7 +127,7 @@ final class Flow
      *
      * @return NodeInterface[]
      */
-    public function getSourcesOf(NodeInterface $node): array
+    public function getSourceNodes(NodeInterface $node): array
     {
         $result = [];
 
@@ -145,13 +145,49 @@ final class Flow
      *
      * @return NodeInterface[]
      */
-    public function getTargetsOf(NodeInterface $node): array
+    public function getTargetNodes(NodeInterface $node): array
     {
         $result = [];
 
         foreach ($this->lines as $line) {
             if ($line->getSourceID() === $node->getID()) {
                 $result[] = $this->nodes[$line->getTargetID()];
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param NodeInterface $node
+     *
+     * @return LineInterface[]
+     */
+    public function getSourceLines(NodeInterface $node): array
+    {
+        $result = [];
+
+        foreach ($this->lines as $line) {
+            if ($line->getTargetID() === $node->getID()) {
+                $result[] = $line;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param NodeInterface $node
+     *
+     * @return LineInterface[]
+     */
+    public function getTargetLines(NodeInterface $node): array
+    {
+        $result = [];
+
+        foreach ($this->lines as $line) {
+            if ($line->getSourceID() === $node->getID()) {
+                $result[] = $line;
             }
         }
 

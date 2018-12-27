@@ -4,7 +4,7 @@ namespace PE\Component\Flow;
 
 class Line implements LineInterface
 {
-    use Label;
+    use LabelledTrait;
 
     /**
      * @var string

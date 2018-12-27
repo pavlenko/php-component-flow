@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow;
 
-interface NodeInterface
+interface NodeInterface extends LabelledInterface
 {
     /**
      * Get node unique identifier
@@ -26,17 +26,9 @@ interface NodeInterface
     public function getAllowedTargetsCount(): int;
 
     /**
-     * @param array $options
+     * @param Dataset $dataset
      *
-     * @return array
+     * @return Dataset
      */
-    public function results(array &$options = []): array;
-
-    /**
-     * Apply node logic to subjects collection
-     *
-     * @param array $subjects Subjects collection
-     * @param array $options  Custom node options, passed by reference to allow persist changed
-     */
-    public function process(array $subjects, array &$options = []): void;
+    public function process(Dataset $dataset): Dataset;
 }
