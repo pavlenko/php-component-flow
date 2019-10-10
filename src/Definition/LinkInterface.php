@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow\Definition;
 
-interface LinkInterface extends IdentityInterface
+interface LinkInterface extends IdentityInterface, LabelledInterface
 {
     /**
      * @return string

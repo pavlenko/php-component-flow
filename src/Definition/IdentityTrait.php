@@ -12,7 +12,7 @@ trait IdentityTrait
     /**
      * @return string
      */
-    public function getIdentity(): string
+    public function getID(): string
     {
         return $this->identity;
     }
@@ -20,7 +20,7 @@ trait IdentityTrait
     /**
      * @param string $id
      */
-    public function setIdentity(string $id): void
+    public function setID(string $id): void
     {
         $this->identity = $id;
     }

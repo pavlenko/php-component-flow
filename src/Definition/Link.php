@@ -5,6 +5,7 @@ namespace PE\Component\Flow\Definition;
 final class Link implements LinkInterface
 {
     use IdentityTrait;
+    use LabelledTrait;
 
     /**
      * @var string

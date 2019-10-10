@@ -5,6 +5,7 @@ namespace PE\Component\Flow\Definition;
 final class Node implements NodeInterface
 {
     use IdentityTrait;
+    use LabelledTrait;
 
     /**
      * @var PortInterface[]
@@ -16,7 +17,12 @@ final class Node implements NodeInterface
      */
     public function getPorts(?string $type = null): array
     {
-        //TODO filter
+        if (!empty($type)) {
+            return array_filter($this->ports, function (PortInterface $port) use ($type) {
+                return $port->getType() === $type;
+            });
+        }
+
         return $this->ports;
     }
 
@@ -25,7 +31,18 @@ final class Node implements NodeInterface
      */
     public function setPorts(array $ports): void
     {
-        //TODO check type
-        $this->ports = $ports;
+        $this->ports = [];
+
+        foreach ($ports as $port) {
+            if (!($port instanceof PortInterface)) {
+                throw new \UnexpectedValueException(sprintf(
+                    'Port must be instance of %s, but got %s',
+                    PortInterface::class,
+                    is_object($port) ? get_class($port) : gettype($port)
+                ));
+            }
+
+            $this->ports[] = $port;
+        }
     }
 }

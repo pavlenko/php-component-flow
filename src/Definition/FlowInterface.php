@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow\Definition;
 
-interface FlowInterface extends IdentityInterface
+interface FlowInterface extends IdentityInterface, LabelledInterface
 {
     /**
      * @return NodeInterface[]

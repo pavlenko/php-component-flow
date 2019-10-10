@@ -7,10 +7,10 @@ interface IdentityInterface
     /**
      * @return string
      */
-    public function getIdentity(): string;
+    public function getID(): string;
 
     /**
      * @param string $id
      */
-    public function setIdentity(string $id): void;
+    public function setID(string $id): void;
 }
