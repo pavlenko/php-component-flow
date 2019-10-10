@@ -12,7 +12,23 @@ final class FlowValidator implements FlowValidatorInterface
     /**
      * @param NodeValidatorInterface[] $validators
      */
-    public function __construct(array $validators)
+    public function __construct(array $validators = [])
+    {
+        $this->setNodeValidators($validators);
+    }
+
+    /**
+     * @return NodeValidatorInterface[]
+     */
+    public function getNodeValidators(): array
+    {
+        return $this->validators;
+    }
+
+    /**
+     * @param NodeValidatorInterface[] $validators
+     */
+    public function setNodeValidators(array $validators): void
     {
         $this->validators = [];
 
