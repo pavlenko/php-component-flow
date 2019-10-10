@@ -9,6 +9,8 @@ interface FlowProcessorInterface
     /**
      * @param FlowInterface        $flow
      * @param LoggerInterface|null $logger
+     *
+     * @return int
      */
-    public function process(FlowInterface $flow, LoggerInterface $logger = null): void;
+    public function process(FlowInterface $flow, LoggerInterface $logger = null): int;
 }
