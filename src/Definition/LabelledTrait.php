@@ -2,6 +2,9 @@
 
 namespace PE\Component\Flow\Definition;
 
+/**
+ * @codeCoverageIgnore
+ */
 trait LabelledTrait
 {
     /**
