@@ -40,4 +40,14 @@ interface FlowInterface extends IdentityInterface, LabelledInterface
      * @param LinkInterface[] $links
      */
     public function setLinks(array $links): void;
+
+    /**
+     * @param LinkInterface $link
+     */
+    public function insertLink(LinkInterface $link): void;
+
+    /**
+     * @param LinkInterface $link
+     */
+    public function removeLink(LinkInterface $link): void;
 }

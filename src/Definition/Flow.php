@@ -96,18 +96,34 @@ final class Flow implements FlowInterface
      */
     public function setLinks(array $links): void
     {
-        $this->links = [];
+        foreach ($this->links as $link) {
+            $this->removeLink($link);
+        }
 
         foreach ($links as $link) {
-            if (!($link instanceof LinkInterface)) {
-                throw new \UnexpectedValueException(sprintf(
-                    'Link must be instance of %s, but got %s',
-                    LinkInterface::class,
-                    is_object($link) ? get_class($link) : gettype($link)
-                ));
-            }
+            $this->insertLink($link);
+        }
+    }
 
+    /**
+     * @inheritDoc
+     */
+    public function insertLink(LinkInterface $link): void
+    {
+        if (!in_array($link, $this->links, true)) {
             $this->links[] = $link;
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function removeLink(LinkInterface $link): void
+    {
+        if (false !== ($key = array_search($link, $this->links, true))) {
+            unset($this->links[$key]);
+        }
+
+        $this->links = array_values($this->links);
     }
 }

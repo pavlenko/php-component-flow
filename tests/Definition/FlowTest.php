@@ -3,6 +3,7 @@
 namespace PETest\Component\Flow\Definition;
 
 use PE\Component\Flow\Definition\Flow;
+use PE\Component\Flow\Definition\LinkInterface;
 use PE\Component\Flow\Definition\NodeInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -61,5 +62,46 @@ class FlowTest extends TestCase
         $flow->setNodes([$node2]);
 
         self::assertSame([$node2], $flow->getNodes());
+    }
+
+    public function testInsertLink(): void
+    {
+        $link = $this->createMock(LinkInterface::class);
+
+        $flow = new Flow('F');
+        $flow->insertLink($link);
+        $flow->insertLink($link);
+
+        self::assertSame([$link], $flow->getLinks());
+    }
+
+    public function testRemoveLink(): void
+    {
+        $link = $this->createMock(LinkInterface::class);
+
+        $flow = new Flow('F');
+        $flow->insertLink($link);
+
+        self::assertSame([$link], $flow->getLinks());
+
+        $flow->removeLink($link);
+
+        self::assertSame([], $flow->getLinks());
+    }
+
+    public function testSetLinks(): void
+    {
+        $link1 = $this->createMock(LinkInterface::class);
+        $link2 = $this->createMock(LinkInterface::class);
+
+        $flow = new Flow('F');
+
+        $flow->setLinks([$link1]);
+
+        self::assertSame([$link1], $flow->getLinks());
+
+        $flow->setLinks([$link2]);
+
+        self::assertSame([$link2], $flow->getLinks());
     }
 }
