@@ -13,6 +13,14 @@ final class Node implements NodeInterface
     private $ports = [];
 
     /**
+     * @param string $id
+     */
+    public function __construct(string $id)
+    {
+        $this->identity = $id;
+    }
+
+    /**
      * @inheritDoc
      */
     public function getPorts(?string $type = null): array
@@ -31,18 +39,48 @@ final class Node implements NodeInterface
      */
     public function setPorts(array $ports): void
     {
-        $this->ports = [];
+        foreach ($this->ports as $port) {
+            $this->removePort($port);
+        }
 
         foreach ($ports as $port) {
-            if (!($port instanceof PortInterface)) {
-                throw new \UnexpectedValueException(sprintf(
-                    'Port must be instance of %s, but got %s',
-                    PortInterface::class,
-                    is_object($port) ? get_class($port) : gettype($port)
-                ));
-            }
+            $this->insertPort($port);
+        }
+    }
 
+    /**
+     * @inheritDoc
+     */
+    public function searchPort(string $id): ?PortInterface
+    {
+        foreach ($this->ports as $port) {
+            if ($port->getID() === $id) {
+                return $port;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function insertPort(PortInterface $port): void
+    {
+        if (!in_array($port, $this->ports, true)) {
             $this->ports[] = $port;
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function removePort(PortInterface $port): void
+    {
+        if (false !== ($key = array_search($port, $this->ports, true))) {
+            unset($this->ports[$key]);
+        }
+
+        $this->ports = array_values($this->ports);
     }
 }

@@ -15,4 +15,21 @@ interface NodeInterface extends IdentityInterface, LabelledInterface
      * @param PortInterface[] $ports
      */
     public function setPorts(array $ports): void;
+
+    /**
+     * @param string $id
+     *
+     * @return PortInterface|null
+     */
+    public function searchPort(string $id): ?PortInterface;
+
+    /**
+     * @param PortInterface $port
+     */
+    public function insertPort(PortInterface $port): void;
+
+    /**
+     * @param PortInterface $port
+     */
+    public function removePort(PortInterface $port): void;
 }
