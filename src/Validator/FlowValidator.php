@@ -1,6 +1,8 @@
 <?php
 
-namespace PE\Component\Flow\Definition;
+namespace PE\Component\Flow\Validator;
+
+use PE\Component\Flow\Definition\FlowInterface;
 
 final class FlowValidator implements FlowValidatorInterface
 {

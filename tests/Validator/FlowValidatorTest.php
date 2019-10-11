@@ -1,11 +1,11 @@
 <?php
 
-namespace PETest\Component\Flow\Definition;
+namespace PETest\Component\Flow\Validator;
 
 use PE\Component\Flow\Definition\FlowInterface;
-use PE\Component\Flow\Definition\FlowValidator;
+use PE\Component\Flow\Validator\FlowValidator;
 use PE\Component\Flow\Definition\NodeInterface;
-use PE\Component\Flow\Definition\NodeValidatorInterface;
+use PE\Component\Flow\Validator\NodeValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
 class FlowValidatorTest extends TestCase

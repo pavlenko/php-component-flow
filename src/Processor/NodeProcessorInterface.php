@@ -1,7 +1,9 @@
 <?php
 
-namespace PE\Component\Flow\Definition;
+namespace PE\Component\Flow\Processor;
 
+use PE\Component\Flow\Definition\FlowInterface;
+use PE\Component\Flow\Definition\NodeInterface;
 use Psr\Log\LoggerInterface;
 
 interface NodeProcessorInterface

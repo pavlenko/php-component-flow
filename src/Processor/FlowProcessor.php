@@ -1,10 +1,11 @@
 <?php
 
-namespace PE\Component\Flow\Definition;
+namespace PE\Component\Flow\Processor;
 
+use PE\Component\Flow\Definition\FlowInterface;
 use Psr\Log\LoggerInterface;
 
-class FlowProcessor implements FlowProcessorInterface
+final class FlowProcessor implements FlowProcessorInterface
 {
     /**
      * @var NodeProcessorInterface[]

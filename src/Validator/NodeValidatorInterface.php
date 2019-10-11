@@ -1,6 +1,9 @@
 <?php
 
-namespace PE\Component\Flow\Definition;
+namespace PE\Component\Flow\Validator;
+
+use PE\Component\Flow\Definition\FlowInterface;
+use PE\Component\Flow\Definition\NodeInterface;
 
 interface NodeValidatorInterface
 {
