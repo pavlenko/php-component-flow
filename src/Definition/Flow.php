@@ -18,6 +18,14 @@ final class Flow implements FlowInterface
     private $links = [];
 
     /**
+     * @param string $id
+     */
+    public function __construct(string $id)
+    {
+        $this->identity = $id;
+    }
+
+    /**
      * @inheritDoc
      */
     public function getNodes(): array
@@ -30,18 +38,48 @@ final class Flow implements FlowInterface
      */
     public function setNodes(array $nodes): void
     {
-        $this->nodes = [];
+        foreach ($this->nodes as $node) {
+            $this->removeNode($node);
+        }
 
         foreach ($nodes as $node) {
-            if (!($node instanceof NodeInterface)) {
-                throw new \UnexpectedValueException(sprintf(
-                    'Node must be instance of %s, but got %s',
-                    NodeInterface::class,
-                    is_object($node) ? get_class($node) : gettype($node)
-                ));
-            }
+            $this->insertNode($node);
+        }
+    }
 
+    /**
+     * @param string $id
+     *
+     * @return NodeInterface|null
+     */
+    public function searchNode(string $id): ?NodeInterface
+    {
+        foreach ($this->nodes as $node) {
+            if ($node->getID() === $id) {
+                return $node;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param NodeInterface $node
+     */
+    public function insertNode(NodeInterface $node): void
+    {
+        if (!in_array($node, $this->nodes, true)) {
             $this->nodes[] = $node;
+        }
+    }
+
+    /**
+     * @param NodeInterface $node
+     */
+    public function removeNode(NodeInterface $node): void
+    {
+        if (false !== ($key = array_search($node, $this->nodes, true))) {
+            unset($this->nodes[$key]);
         }
     }
 
