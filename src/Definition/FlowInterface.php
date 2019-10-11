@@ -15,6 +15,23 @@ interface FlowInterface extends IdentityInterface, LabelledInterface
     public function setNodes(array $nodes): void;
 
     /**
+     * @param string $id
+     *
+     * @return NodeInterface|null
+     */
+    public function searchNode(string $id): ?NodeInterface;
+
+    /**
+     * @param NodeInterface $node
+     */
+    public function insertNode(NodeInterface $node): void;
+
+    /**
+     * @param NodeInterface $node
+     */
+    public function removeNode(NodeInterface $node): void;
+
+    /**
      * @return LinkInterface[]
      */
     public function getLinks(): array;

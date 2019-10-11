@@ -48,9 +48,7 @@ final class Flow implements FlowInterface
     }
 
     /**
-     * @param string $id
-     *
-     * @return NodeInterface|null
+     * @inheritDoc
      */
     public function searchNode(string $id): ?NodeInterface
     {
@@ -64,7 +62,7 @@ final class Flow implements FlowInterface
     }
 
     /**
-     * @param NodeInterface $node
+     * @inheritDoc
      */
     public function insertNode(NodeInterface $node): void
     {
@@ -74,13 +72,15 @@ final class Flow implements FlowInterface
     }
 
     /**
-     * @param NodeInterface $node
+     * @inheritDoc
      */
     public function removeNode(NodeInterface $node): void
     {
         if (false !== ($key = array_search($node, $this->nodes, true))) {
             unset($this->nodes[$key]);
         }
+
+        $this->nodes = array_values($this->nodes);
     }
 
     /**
