@@ -13,6 +13,14 @@ final class Port implements PortInterface
     private $type;
 
     /**
+     * @param string $id
+     */
+    public function __construct(string $id)
+    {
+        $this->identity = $id;
+    }
+
+    /**
      * @inheritDoc
      */
     public function getType(): string

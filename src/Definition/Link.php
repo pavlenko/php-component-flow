@@ -31,6 +31,14 @@ final class Link implements LinkInterface
     private $targetPortID;
 
     /**
+     * @param string $id
+     */
+    public function __construct(string $id)
+    {
+        $this->identity = $id;
+    }
+
+    /**
      * @inheritDoc
      */
     public function getSourceBlockID(): string
