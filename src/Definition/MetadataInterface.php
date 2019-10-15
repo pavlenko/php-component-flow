@@ -16,6 +16,13 @@ interface MetadataInterface
 
     /**
      * @param string $name
+     *
+     * @return bool
+     */
+    public function hasMetadataItem(string $name): bool;
+
+    /**
+     * @param string $name
      * @param null   $default
      *
      * @return mixed
