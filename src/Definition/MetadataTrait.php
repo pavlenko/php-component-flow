@@ -37,7 +37,7 @@ trait MetadataTrait
 
     /**
      * @param string $name
-     * @param null   $default
+     * @param mixed  $default
      *
      * @return mixed
      */
@@ -48,7 +48,7 @@ trait MetadataTrait
 
     /**
      * @param string $name
-     * @param        $value
+     * @param mixed  $value
      */
     public function setMetadataItem(string $name, $value): void
     {
