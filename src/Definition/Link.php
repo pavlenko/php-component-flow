@@ -41,7 +41,7 @@ final class Link implements LinkInterface
     /**
      * @inheritDoc
      */
-    public function getSourceBlockID(): string
+    public function getSourceNodeID(): string
     {
         return $this->sourceBlockID;
     }
@@ -49,7 +49,7 @@ final class Link implements LinkInterface
     /**
      * @inheritDoc
      */
-    public function setSourceBlockID(string $id): void
+    public function setSourceNodeID(string $id): void
     {
         $this->sourceBlockID = $id;
     }
@@ -73,7 +73,7 @@ final class Link implements LinkInterface
     /**
      * @inheritDoc
      */
-    public function getTargetBlockID(): string
+    public function getTargetNodeID(): string
     {
         return $this->targetBlockID;
     }
@@ -81,7 +81,7 @@ final class Link implements LinkInterface
     /**
      * @inheritDoc
      */
-    public function setTargetBlockID(string $id): void
+    public function setTargetNodeID(string $id): void
     {
         $this->targetBlockID = $id;
     }

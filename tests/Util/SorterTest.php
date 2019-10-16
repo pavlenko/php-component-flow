@@ -39,33 +39,33 @@ class SorterTest extends TestCase
         $nodeE->setPorts([new Port('EI', Port::TYPE_I), new Port('EO', Port::TYPE_O)]);
 
         $link1 = new Link('1');
-        $link1->setSourceBlockID('A');
+        $link1->setSourceNodeID('A');
         $link1->setSourcePortID('AO');
-        $link1->setTargetBlockID('B');
+        $link1->setTargetNodeID('B');
         $link1->setTargetPortID('BI');
 
         $link2 = new Link('2');
-        $link2->setSourceBlockID('B');
+        $link2->setSourceNodeID('B');
         $link2->setSourcePortID('BO');
-        $link2->setTargetBlockID('C');
+        $link2->setTargetNodeID('C');
         $link2->setTargetPortID('CI');
 
         $link3 = new Link('3');
-        $link3->setSourceBlockID('C');
+        $link3->setSourceNodeID('C');
         $link3->setSourcePortID('CO');
-        $link3->setTargetBlockID('D');
+        $link3->setTargetNodeID('D');
         $link3->setTargetPortID('DI');
 
         $link4 = new Link('4');
-        $link4->setSourceBlockID('A');
+        $link4->setSourceNodeID('A');
         $link4->setSourcePortID('AO');
-        $link4->setTargetBlockID('E');
+        $link4->setTargetNodeID('E');
         $link4->setTargetPortID('EI');
 
         $link5 = new Link('4');
-        $link5->setSourceBlockID('E');
+        $link5->setSourceNodeID('E');
         $link5->setSourcePortID('EO');
-        $link5->setTargetBlockID('D');
+        $link5->setTargetNodeID('D');
         $link5->setTargetPortID('DI');
 
         $actual   = [$nodeC, $nodeA, $nodeB, $nodeE, $nodeD];

@@ -7,12 +7,12 @@ interface LinkInterface extends IdentityInterface, LabelledInterface
     /**
      * @return string
      */
-    public function getSourceBlockID(): string;
+    public function getSourceNodeID(): string;
 
     /**
      * @param string $id
      */
-    public function setSourceBlockID(string $id): void;
+    public function setSourceNodeID(string $id): void;
 
     /**
      * @return string
@@ -27,12 +27,12 @@ interface LinkInterface extends IdentityInterface, LabelledInterface
     /**
      * @return string
      */
-    public function getTargetBlockID(): string;
+    public function getTargetNodeID(): string;
 
     /**
      * @param string $id
      */
-    public function setTargetBlockID(string $id): void;
+    public function setTargetNodeID(string $id): void;
 
     /**
      * @return string
