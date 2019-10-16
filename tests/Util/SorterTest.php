@@ -16,7 +16,7 @@ class SorterTest extends TestCase
         /**
          *   B-C
          *  /   \
-         * A     D
+         * A-B-C-D
          *  \   /
          *    E
          *
@@ -34,9 +34,6 @@ class SorterTest extends TestCase
 
         $nodeD = new Node('D');
         $nodeD->setPorts([new Port('DI', Port::TYPE_I)]);
-
-        $nodeE = new Node('E');
-        $nodeE->setPorts([new Port('EI', Port::TYPE_I), new Port('EO', Port::TYPE_O)]);
 
         $link1 = new Link('1');
         $link1->setSourceNodeID('A');
@@ -56,29 +53,17 @@ class SorterTest extends TestCase
         $link3->setTargetNodeID('D');
         $link3->setTargetPortID('DI');
 
-        $link4 = new Link('4');
-        $link4->setSourceNodeID('A');
-        $link4->setSourcePortID('AO');
-        $link4->setTargetNodeID('E');
-        $link4->setTargetPortID('EI');
-
-        $link5 = new Link('4');
-        $link5->setSourceNodeID('E');
-        $link5->setSourcePortID('EO');
-        $link5->setTargetNodeID('D');
-        $link5->setTargetPortID('DI');
-
-        $actual   = [$nodeC, $nodeA, $nodeB, $nodeE, $nodeD];
-        $expected = [$nodeA, $nodeB, $nodeE, $nodeC, $nodeD];
+        $actual   = [$nodeC, $nodeA, $nodeB, $nodeD];
+        $expected = [$nodeA, $nodeB, $nodeC, $nodeD];
 
         $flow = new Flow('FLOW');
         $flow->setNodes($actual);
-        $flow->setLinks([$link1, $link2, $link3, $link4, $link5]);
+        $flow->setLinks([$link1, $link2, $link3]);
 
         $sorter = new Sorter();
         $sorter->sort($flow);
 
-        $this->markTestIncomplete();
+        //$this->markTestIncomplete();
         self::assertSame($expected, $flow->getNodes());
     }
 }
