@@ -87,14 +87,19 @@ final class Validator implements ValidatorInterface
      */
     public function validate(FlowInterface $flow): array
     {
-        //TODO validate flow & maybe change result format
         $result = [];
+
+        foreach ($this->flowValidators as $flowValidator) {
+            if (count($messages = $flowValidator->validate($flow))) {
+                $result[] = [$flow, $messages];
+            }
+        }
 
         foreach ($flow->getNodes() as $node) {
             $errors = [];
 
-            foreach ($this->nodeValidators as $validator) {
-                if ($validator->supports($node) && count($messages = $validator->validate($flow, $node))) {
+            foreach ($this->nodeValidators as $nodeValidator) {
+                if ($nodeValidator->supports($node) && count($messages = $nodeValidator->validate($flow, $node))) {
                     array_push($errors, ...$messages);
                 }
             }
