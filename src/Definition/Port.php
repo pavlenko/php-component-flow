@@ -6,6 +6,8 @@ final class Port implements PortInterface
 {
     use IdentityTrait;
     use LabelledTrait;
+    use MetadataTrait;
+    use SettingsTrait;
 
     /**
      * @var string

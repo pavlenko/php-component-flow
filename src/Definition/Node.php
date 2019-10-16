@@ -6,6 +6,8 @@ final class Node implements NodeInterface
 {
     use IdentityTrait;
     use LabelledTrait;
+    use MetadataTrait;
+    use SettingsTrait;
 
     /**
      * @var PortInterface[]

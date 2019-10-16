@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow\Definition;
 
-interface PortInterface extends IdentityInterface, LabelledInterface
+interface PortInterface extends IdentityInterface, LabelledInterface, MetadataInterface, SettingsInterface
 {
     public const TYPE_I = 'I';
     public const TYPE_O = 'O';

@@ -2,7 +2,7 @@
 
 namespace PE\Component\Flow\Definition;
 
-interface NodeInterface extends IdentityInterface, LabelledInterface
+interface NodeInterface extends IdentityInterface, LabelledInterface, MetadataInterface, SettingsInterface
 {
     /**
      * @param string|null $type
