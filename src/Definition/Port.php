@@ -15,11 +15,16 @@ final class Port implements PortInterface
     private $type;
 
     /**
-     * @param string $id
+     * @param string      $id
+     * @param string|null $type
      */
-    public function __construct(string $id)
+    public function __construct(string $id, string $type = null)
     {
         $this->identity = $id;
+
+        if ($type) {
+            $this->setType($type);
+        }
     }
 
     /**
